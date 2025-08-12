@@ -23,6 +23,8 @@ require("lazy").setup({
         require('standard.oil'),
         require('standard.telescope'),
         require('standard.whichkey'),
+        require('shared_plugins/gitsigns'),
+        require('ruby/lsp'),
     }
 })
 
