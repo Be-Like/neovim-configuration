@@ -1,4 +1,6 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy-ruby/lazy.nvim"
+require('c/option_overrides')
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy-c/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
@@ -15,8 +17,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    root = vim.fn.stdpath('data') .. '/lazy-ruby',
-    lockfile = vim.fn.stdpath('config') .. '/lua/ruby/lazy-lock.json',
+    root = vim.fn.stdpath('data') .. '/lazy-c',
+    lockfile = vim.fn.stdpath('config') .. '/lua/c/lazy-lock.json',
 
     spec = {
         require('themes.tokyonight'),
@@ -24,7 +26,7 @@ require("lazy").setup({
         require('standard.telescope'),
         require('standard.whichkey'),
         require('shared_plugins/gitsigns'),
-        require('ruby/lsp'),
+        require('c/lsp'),
     }
 })
 

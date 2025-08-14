@@ -4,9 +4,23 @@ return {
     
     config = function()
         local telescope = require('telescope')
+        local action_set = require('telescope.actions.set')
+
         telescope.setup({
             defaults = {
                 initial_mode = 'normal',
+
+                mappings = {
+                    n = {
+                        ["<C-h>"] = "which_key",
+                        ["ov"] = function(prompt_bufnr)
+                            return action_set.select(prompt_bufnr, "vertical")
+                        end,
+                        ["bd"] = function(prompt_bufnr)
+                            return action_set.edit_buffer('drop', prompt_bufnr)
+                        end,
+                    },
+                },
             }
         })
 
@@ -22,6 +36,6 @@ return {
         vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[s]earch [r]esume' })
         vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[s]earch recent files ("." for repeat)' })
         vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] find existing buffers' })
-    end
+    end,
 }
 
