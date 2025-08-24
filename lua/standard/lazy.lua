@@ -18,11 +18,6 @@ require("lazy").setup({
     root = vim.fn.stdpath('data') .. '/lazy-standard',
     lockfile = vim.fn.stdpath('config') .. '/lua/standard/lazy-lock.json',
 
-    spec = {
-        require('themes.tokyonight'),
-        require('standard.oil'),
-        require('standard.telescope'),
-        require('standard.whichkey'),
-    }
+    spec = require('standard.standard_lazy_imports'),
 })
 

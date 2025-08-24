@@ -25,7 +25,12 @@ require("lazy").setup({
         require('standard.oil'),
         require('standard.telescope'),
         require('standard.whichkey'),
-        require('shared_plugins/gitsigns'),
-        require('javascript/lsp'),
+        require('standard.quickfixpreview'),
+        require('standard.mini'),
+        require('standard.autopairs'),
+        require('shared_plugins.gitsigns'),
+        require('javascript.lsp'),
+        require('javascript.ripgrep'),
+        require('javascript.treesitter'),
     }
 })

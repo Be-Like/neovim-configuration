@@ -3,6 +3,7 @@ vim.keymap.del('n', 'gra')
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
+  opts = { inlay_hints = true },
   dependencies = {
     {
       'hrsh7th/cmp-nvim-lsp',
@@ -63,6 +64,7 @@ return {
       buf_set_keymap('n', 'grD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts('Go to declaration'))
       buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts('Rename'))
       buf_set_keymap('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts('Go to type definition'))
+      buf_set_keymap('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts('LSP code action'))
 
       buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts('Format file'))
       buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts('Display the documentation in a hover window'))

@@ -1,4 +1,4 @@
-require('c/option_overrides')
+require('c.option_overrides')
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy-c/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -25,8 +25,14 @@ require("lazy").setup({
         require('standard.oil'),
         require('standard.telescope'),
         require('standard.whichkey'),
-        require('shared_plugins/gitsigns'),
-        require('c/lsp'),
+        require('standard.quickfixpreview'),
+        require('standard.mini'),
+        require('standard.autopairs'),
+        require('shared_plugins.gitsigns'),
+        require('c.lsp'),
+        require('c.ripgrep'),
+        require('c.treesitter'),
+        require('c.debugger'),
     }
 })
 

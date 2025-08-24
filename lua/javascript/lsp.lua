@@ -80,6 +80,7 @@ return {
             buf_set_keymap('n', 'grD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts('Go to declaration'))
             buf_set_keymap('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts('Rename'))
             buf_set_keymap('n', 'grt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts('Go to type definition'))
+            buf_set_keymap('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts('LSP code action'))
 
             buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts('Format file'))
             buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>',
@@ -99,8 +100,10 @@ return {
         })
 
         vim.lsp.config('eslint', {
+            on_attach = on_attach,
+            cmd = { 'yarn', 'vscode-eslint-language-server', '--stdio' },
             settings = {
-                format = false
+                format = true
             },
         })
 
@@ -128,6 +131,7 @@ return {
         vim.lsp.enable('lua_ls')
         vim.lsp.enable('ts_ls')
         vim.lsp.enable('vue_ls')
+        vim.lsp.enable('eslint')
 
         -- vim.api.nvim_create_autocmd("BufWritePre", {
         -- 	pattern = { "*.ts" },
