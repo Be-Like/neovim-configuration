@@ -23,7 +23,7 @@ return {
                 vim.keymap.set(mode, l, r, opts)
             end
 
-            map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = 'Toggles the git blame' })
+            map('n', '<leader>gb', gitsigns.toggle_current_line_blame, { desc = 'Toggles the git blame' })
         end,
     },
 }

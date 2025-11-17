@@ -25,8 +25,39 @@ return {
     -- event = 'VeryLazy',
     -- NOTE: And you can specify dependencies as well
     dependencies = {
+      'Jorenar/nvim-dap-disasm',
+
       -- Creates a beautiful debugger UI
-      'rcarriga/nvim-dap-ui',
+      -- 'rcarriga/nvim-dap-ui',
+      {
+        'rcarriga/nvim-dap-ui',
+        opts = {
+          layouts = {
+            {
+              elements = {
+                { id = 'scopes', size = 0.25 },
+                { id = 'breakpoints', size = 0.25 },
+                { id = 'stacks', size = 0.25 },
+                { id = 'watches', size = 0.25 },
+              },
+              position = 'left',
+              size = 43
+            },
+            {
+              elements = {
+                { id = 'repl', size = 0.5 },
+                { id = 'console', size = 0.5 },
+              },
+              position = 'bottom',
+              size = 10
+            },
+          },
+        },
+      },
+
+      -- Minimal debugger UI
+      -- { 'igorlfs/nvim-dap-view', opts = {} },
+
       -- virtual text for the debugger
       { 'theHamsta/nvim-dap-virtual-text', opts = {} },
     },
@@ -56,7 +87,7 @@ return {
     },
     config = function()
         local dap = require('dap')
-        
+
         -- adapter configuration
         dap.adapters.gdb = {
             type = "executable",
@@ -119,6 +150,7 @@ return {
     config = function(_, opts)
       local dap = require('dap')
       local dapui = require('dapui')
+
       dapui.setup(opts)
       dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open({}) end
       dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close({}) end

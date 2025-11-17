@@ -24,9 +24,13 @@ require("lazy").setup({
         require('standard.telescope'),
         require('standard.whichkey'),
         require('standard.quickfixpreview'),
-        require('shared_plugins/gitsigns'),
-        require('ruby/lsp'),
-        require('ruby/ripgrep'),
+        require('standard.mini'),
+        require('standard.autopairs'),
+        require('shared_plugins.gitsigns'),
+        require('ruby.lsp'),
+        require('ruby.ripgrep'),
+        require('ruby.treesitter'),
+        require('ruby.testers'),
     }
 })
 

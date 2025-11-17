@@ -49,21 +49,12 @@ return {
         'ssh_config',
         'hyprlang',
 
-        -- javascript
-        'javascript',
-        'jsdoc',
-        'typescript',
-        'tsx',
-        'yaml',
-        'vue',
+        -- ruby
+        'ruby',
+        'sql',
         'html',
         'css',
-        'scss',
-        'sql',
-
-        -- -- ruby
-        -- 'ruby',
-        -- 'sql',
+        'yaml'
         --
         -- -- c/c++
         -- 'c',
