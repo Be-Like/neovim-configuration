@@ -17,7 +17,7 @@ return {
 		vim.keymap.set("n", "<leader>rge", function()
 				local word = vim.fn.expand("<cword>")
 				if word and word ~= "" then
-					local cmd = string.format("Rg '\\b%s\\b' --glob \"!*.spec.js\"", word)
+					local cmd = string.format("Rg '\\b%s\\b' --glob \"!*.rb\"", word)
 					vim.fn.histadd("cmd", cmd)
 					vim.cmd(cmd)
 				else

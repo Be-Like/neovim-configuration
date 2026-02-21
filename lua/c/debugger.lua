@@ -106,6 +106,10 @@ return {
                 end,
                 cwd = "${workspaceFolder}",
                 stopAtBeginningOfMainSubprogram = false,
+                args = function()
+                    local args_string = vim.fn.input('Arguments: ')
+                    return vim.split(args_string, " +")
+                end,
             },
             {
                 name = "Select and attach to process",

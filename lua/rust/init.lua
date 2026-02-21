@@ -1,6 +1,4 @@
-require('c.option_overrides')
-
-local lazypath = vim.fn.stdpath("data") .. "/lazy-c/lazy.nvim"
+local lazypath = vim.fn.stdpath("data") .. "/lazy-rust/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
@@ -17,8 +15,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    root = vim.fn.stdpath('data') .. '/lazy-c',
-    lockfile = vim.fn.stdpath('config') .. '/lua/c/lazy-lock.json',
+    root = vim.fn.stdpath('data') .. '/lazy-rust',
+    lockfile = vim.fn.stdpath('config') .. '/lua/rust/lazy-lock.json',
 
     spec = {
         require('themes.cyberdream'),
@@ -29,10 +27,10 @@ require("lazy").setup({
         require('standard.mini'),
         require('standard.autopairs'),
         require('shared_plugins.gitsigns'),
-        require('c.lsp'),
-        require('c.ripgrep'),
-        require('c.treesitter'),
-        require('c.debugger'),
+        require('rust.lsp'),
+        require('rust.ripgrep'),
+        require('rust.treesitter'),
+        -- require('rust.debugger'),
     }
 })
 

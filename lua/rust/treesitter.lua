@@ -37,38 +37,16 @@ return {
         'ssh_config',
         'hyprlang',
 
-        -- javascript
+        -- rust
+        'rust',
+        'sql',
         'javascript',
         'jsdoc',
         'typescript',
-        'tsx',
         'yaml',
-        'vue',
         'html',
         'css',
-        'scss',
-        'sql',
-
-        -- -- ruby
-        -- 'ruby',
-        -- 'sql',
-        --
-        -- -- c/c++
-        -- 'c',
-        -- 'cpp',
-        -- 'make',
-        -- 'cmake',
-        -- 'printf',
-        -- 'sql',
-        --
-        --
-        -- -- python
-        -- 'python',
-        -- 'sql',
-        --
-        -- -- rust
-        -- 'rust',
-        -- 'sql',
+        'scss'
       }
 
     -- 3. Install parsers imperatively
