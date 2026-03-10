@@ -30,6 +30,7 @@ require("lazy").setup({
         require('rust.lsp'),
         require('rust.ripgrep'),
         require('rust.treesitter'),
+        require('rust.testers'),
         -- require('rust.debugger'),
     }
 })
