@@ -14,7 +14,7 @@ return {
 
     -- 1. Setup your isolated parser directory
     treesitter.setup({
-      install_dir = vim.fn.stdpath('data') .. '/lazy-javascript/site',
+      install_dir = vim.fn.stdpath('data') .. '/lazy-rust/site',
     })
 
     -- 2. Define the parsers you need
@@ -52,19 +52,15 @@ return {
     -- 3. Install parsers imperatively
     treesitter.install(parsers)
 
-    -- 4. Enable Neovim's native highlighting and indenting via autocommand
-    -- local group = vim.api.nvim_create_augroup('CustomTreesitterSetup', { clear = true })
-    --
-    -- vim.api.nvim_create_autocmd('FileType', {
-    --   group = group,
-    --   pattern = parsers,
-    --   callback = function(args)
-    --     -- Enable native Neovim treesitter highlighting for the buffer
-    --     vim.treesitter.start(args.buf)
-    --
-    --     -- Enable treesitter-based indentation
-    --     vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    --   end,
-    -- })
+    -- 4. Enable Neovim's native highlighting via autocommand
+    local group = vim.api.nvim_create_augroup('CustomTreesitterSetup', { clear = true })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      group = group,
+      pattern = '*',
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
+    })
   end,
 }

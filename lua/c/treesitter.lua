@@ -1,35 +1,26 @@
 return {
   "nvim-treesitter/nvim-treesitter",
 
+  branch = "main",
+
+  lazy = false,
+
   build = ':TSUpdate',
 
   event = { "BufReadPre", 'BufNewFile' },
 
   config = function()
-    local treesitter = require("nvim-treesitter.configs")
+    local treesitter = require("nvim-treesitter")
 
-    vim.keymap.set('n', '<leader>ts', vim.cmd.InspectTree, { desc = '[i]nspect [t]ree' })
+    vim.keymap.set('n', '<leader>it', vim.cmd.InspectTree, { desc = '[i]nspect [t]ree' })
 
+    -- 1. Setup your isolated parser directory
     treesitter.setup({
-      highlight = {
-        enable = true,
-      },
+      install_dir = vim.fn.stdpath('data') .. '/lazy-c/site',
+    })
 
-      indent = {
-        enable = true,
-      },
-
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = 'gnn',
-          node_incremental = 'grn',
-          node_decremental = 'grm',
-          scope_incremental = 'grc',
-        }
-      },
-
-      ensure_installed = {
+    -- 2. Define the parsers you need
+    local parsers = {
         -- standard
         'bash',
         'markdown',
@@ -39,7 +30,6 @@ return {
         'vim',
         'vimdoc',
         'json',
-        'jsonc',
         'gitignore',
         'desktop',
         'diff',
@@ -58,6 +48,19 @@ return {
         'printf',
         'sql',
       }
+
+    -- 3. Install parsers imperatively
+    treesitter.install(parsers)
+
+    -- 4. Enable Neovim's native highlighting via autocommand
+    local group = vim.api.nvim_create_augroup('CustomTreesitterSetup', { clear = true })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      group = group,
+      pattern = '*',
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
     })
   end,
 }

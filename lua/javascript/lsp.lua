@@ -126,6 +126,17 @@ return {
             filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
         })
 
+        vim.lsp.config('vue_ls', {
+            on_attach = on_attach,
+            cmd = { 'yarn', 'vue-language-server', '--stdio' },
+            init_options = {
+                typescript = {
+                    tsdk = node_modules_path
+                        and (node_modules_path .. '/typescript/lib')
+                        or nil
+                }
+            }
+        })
 
         -- enable the configurations for the various lsp servers so that when I open a buffer one of them can handle they are auto attached
         vim.lsp.enable('lua_ls')

@@ -1,78 +1,64 @@
 return {
   "nvim-treesitter/nvim-treesitter",
 
+  branch = "main",
+
+  lazy = false,
+
   build = ':TSUpdate',
 
   event = { "BufReadPre", 'BufNewFile' },
 
   config = function()
-    local treesitter = require("nvim-treesitter.configs")
+    local treesitter = require("nvim-treesitter")
 
     vim.keymap.set('n', '<leader>it', vim.cmd.InspectTree, { desc = '[i]nspect [t]ree' })
 
+    -- 1. Setup your isolated parser directory
     treesitter.setup({
-      highlight = {
-        enable = true,
-      },
+      install_dir = vim.fn.stdpath('data') .. '/lazy-ruby/site',
+    })
 
-      indent = {
-        enable = true,
-      },
+    -- 2. Define the parsers you need
+    local parsers = {
+      -- standard
+      'bash',
+      'markdown',
+      'markdown_inline',
+      'lua',
+      'luadoc',
+      'vim',
+      'vimdoc',
+      'json',
+      'gitignore',
+      'desktop',
+      'diff',
+      'git_config',
+      'git_rebase',
+      'http',
+      'ssh_config',
+      'hyprlang',
 
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = 'gnn',
-          node_incremental = 'grn',
-          node_decremental = 'grm',
-          scope_incremental = 'grc',
-        }
-      },
+      -- ruby
+      'ruby',
+      'sql',
+      'html',
+      'css',
+      'yaml',
+    }
 
-      ensure_installed = {
-        -- standard
-        'bash',
-        'markdown',
-        'markdown_inline',
-        'lua',
-        'luadoc',
-        'vim',
-        'vimdoc',
-        'json',
-        'jsonc',
-        'gitignore',
-        'desktop',
-        'diff',
-        'git_config',
-        'git_rebase',
-        'http',
-        'ssh_config',
-        'hyprlang',
+    -- 3. Install parsers imperatively
+    treesitter.install(parsers)
 
-        -- ruby
-        'ruby',
-        'sql',
-        'html',
-        'css',
-        'yaml'
-        --
-        -- -- c/c++
-        -- 'c',
-        -- 'cpp',
-        -- 'make',
-        -- 'cmake',
-        -- 'printf',
-        -- 'sql',
-        --
-        --
-        -- -- python
-        -- 'python',
-        -- 'sql',
-        --
-        -- -- rust
-        -- 'rust',
-        -- 'sql',
-      }
+    -- 4. Enable Neovim's native highlighting via autocommand
+    local group = vim.api.nvim_create_augroup('CustomTreesitterSetup', { clear = true })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      group = group,
+      pattern = '*',
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
     })
   end,
 }

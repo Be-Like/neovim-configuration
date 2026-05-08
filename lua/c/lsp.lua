@@ -23,14 +23,14 @@ return {
       version = '1.6.0',
       build = 'cargo build --release',
       opts = {
-        keymap = { preset = 'default' },
+        keymap = { preset = 'super-tab' },
         completion = {
           documentation = {
             auto_show = true,
           },
 
           menu = {
-            auto_show = false,
+            auto_show = true,
           },
         },
         fuzzy = { implementation = 'lua' },

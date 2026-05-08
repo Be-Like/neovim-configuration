@@ -48,45 +48,20 @@ return {
         'css',
         'scss',
         'sql',
-
-        -- -- ruby
-        -- 'ruby',
-        -- 'sql',
-        --
-        -- -- c/c++
-        -- 'c',
-        -- 'cpp',
-        -- 'make',
-        -- 'cmake',
-        -- 'printf',
-        -- 'sql',
-        --
-        --
-        -- -- python
-        -- 'python',
-        -- 'sql',
-        --
-        -- -- rust
-        -- 'rust',
-        -- 'sql',
       }
 
     -- 3. Install parsers imperatively
     treesitter.install(parsers)
 
-    -- 4. Enable Neovim's native highlighting and indenting via autocommand
-    -- local group = vim.api.nvim_create_augroup('CustomTreesitterSetup', { clear = true })
-    --
-    -- vim.api.nvim_create_autocmd('FileType', {
-    --   group = group,
-    --   pattern = parsers,
-    --   callback = function(args)
-    --     -- Enable native Neovim treesitter highlighting for the buffer
-    --     vim.treesitter.start(args.buf)
-    --
-    --     -- Enable treesitter-based indentation
-    --     vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    --   end,
-    -- })
+    -- 4. Enable Neovim's native highlighting via autocommand
+    local group = vim.api.nvim_create_augroup('CustomTreesitterSetup', { clear = true })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      group = group,
+      pattern = '*',
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
+    })
   end,
 }

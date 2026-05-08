@@ -12,6 +12,8 @@ elseif dev_env == 'c' then
     require('c')
 elseif dev_env == 'rust' then
     require('rust')
+elseif dev_env == 'qml' then
+    require('qml')
 elseif dev_env ~= nil then
     print("We are in a special environment: " .. os.getenv('NEO_DEVELOPMENT_ENV'))
 elseif dev_env == nil then
