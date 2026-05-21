@@ -37,7 +37,6 @@ return {
         {
             'saghen/blink.cmp',
             version = '1.6.0',
-            build = 'cargo build --release',
             opts = {
                 keymap = { preset = 'super-tab' },
                 completion = {
