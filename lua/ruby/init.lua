@@ -19,7 +19,7 @@ require("lazy").setup({
     lockfile = vim.fn.stdpath('config') .. '/lua/ruby/lazy-lock.json',
 
     spec = {
-        require('themes.tokyonight'),
+        require('themes.cyberdream'),
         require('standard.oil'),
         require('standard.telescope'),
         require('standard.whichkey'),

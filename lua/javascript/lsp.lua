@@ -1,4 +1,5 @@
 vim.keymap.del('n', 'gra')
+local FunnyQuotes = require('standard.funny_quotes')
 
 local function find_node_modules_path()
     -- Find the closest node_modules directory from the current file upward
@@ -34,27 +35,97 @@ return {
                 -- options
             },
         },
+
         {
             'saghen/blink.cmp',
             version = '1.6.0',
-            opts = {
+              opts = {
                 keymap = { preset = 'super-tab' },
                 completion = {
-                    documentation = {
-                        auto_show = true,
-                    },
+                  documentation = {
+                    auto_show = true,
+                    window = {
+                        border = {
+                            { vim.fn.nr2char(0xf129), "DiagnosticHint" }, -- nf-fa-info icon ""
+                            vim.fn.nr2char(0x2500), -- "─"
+                            vim.fn.nr2char(0x256e), -- "╮"
+                            vim.fn.nr2char(0x2502), -- "│"
+                            vim.fn.nr2char(0x256f), -- "╯"
+                            vim.fn.nr2char(0x2500), -- "─"
+                            vim.fn.nr2char(0x2570), -- "╰"
+                            vim.fn.nr2char(0x2502), -- "│"
+                        }
+                    }
+                  },
 
-                    menu = {
-                        auto_show = true,
-                    },
+                  menu = {
+                    scrollbar = false,
+                    auto_show = true,
+                    min_width = FunnyQuotes.maxQuoteSize + 2,
+                    border = {
+                        { vim.fn.nr2char(0xf140b), "WarningMsg" }, -- nf-md-lightning_bolt icon "󱐋"
+                        vim.fn.nr2char(0x2500), -- "─"
+                        vim.fn.nr2char(0x256e), -- "╮"
+                        vim.fn.nr2char(0x2502), -- "│"
+                        vim.fn.nr2char(0x256f), -- "╯"
+                        vim.fn.nr2char(0x2500), -- "─"
+                        vim.fn.nr2char(0x2570), -- "╰"
+                        vim.fn.nr2char(0x2502), -- "│"
+                    }
+                  },
                 },
+
+                signature = {
+                    window = {
+                        border = {
+                            { vim.fn.nr2char(0xee7f), "SignatureMsg" }, -- nf-fa-signature icon ""
+                            vim.fn.nr2char(0x2500), -- "─"
+                            vim.fn.nr2char(0x256e), -- "╮"
+                            vim.fn.nr2char(0x2502), -- "│"
+                            vim.fn.nr2char(0x256f), -- "╯"
+                            vim.fn.nr2char(0x2500), -- "─"
+                            vim.fn.nr2char(0x2570), -- "╰"
+                            vim.fn.nr2char(0x2502), -- "│"
+                        }
+                    }
+                },
+
                 fuzzy = { implementation = 'lua' },
-            },
+              },
         },
     },
 
     config = function()
-        vim.diagnostic.config({ severity_sort = true })
+        vim.diagnostic.config({
+            severity_sort = true,
+            float = {
+                border = {
+                    { vim.fn.nr2char(0xf129), "DiagnosticHint" }, -- nf-fa-info icon ""
+                    vim.fn.nr2char(0x2500), -- "─"
+                    vim.fn.nr2char(0x256e), -- "╮"
+                    vim.fn.nr2char(0x2502), -- "│"
+                    vim.fn.nr2char(0x256f), -- "╯"
+                    vim.fn.nr2char(0x2500), -- "─"
+                    vim.fn.nr2char(0x2570), -- "╰"
+                    vim.fn.nr2char(0x2502), -- "│"
+                }
+            }
+        })
+
+
+        vim.api.nvim_create_autocmd('User', {
+            pattern = 'BlinkCmpMenuOpen',
+            callback = function()
+                local win = require('blink.cmp.completion.windows.menu').win:get_win()
+                if win and vim.api.nvim_win_is_valid(win) then
+                    local title = FunnyQuotes.quotes[math.random(#FunnyQuotes.quotes)]
+                    vim.api.nvim_win_set_config(win, {
+                        title = { { ' ' .. title .. ' ', 'WarningMsg' } },
+                        title_pos = 'center'
+                    })
+                end
+            end
+        })
 
         -- Use an on_attach function to only map the following keys
         -- after the language server attaches to the current buffer
@@ -82,8 +153,7 @@ return {
             buf_set_keymap('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts('LSP code action'))
 
             buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts('Format file'))
-            buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>',
-                opts('Display the documentation in a hover window'))
+            buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover({ border = { { vim.fn.nr2char(0xf129), "DiagnosticHint" }, vim.fn.nr2char(0x2500), vim.fn.nr2char(0x256e), vim.fn.nr2char(0x2502), vim.fn.nr2char(0x256f), vim.fn.nr2char(0x2500), vim.fn.nr2char(0x2570), vim.fn.nr2char(0x2502), }})<CR>', opts('Display the documentation in a hover window'))
         end
 
         -- configure the various different lsp servers that I use
@@ -127,6 +197,7 @@ return {
 
         vim.lsp.config('vue_ls', {
             on_attach = on_attach,
+            capabilities = require('blink.cmp').get_lsp_capabilities(),
             cmd = { 'yarn', 'vue-language-server', '--stdio' },
             init_options = {
                 typescript = {

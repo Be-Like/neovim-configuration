@@ -4,9 +4,9 @@ return {
     priority = 1000,
 
     config = function()
-        require('cyberdream').setup {
+        local opts = {
             variant = "default",
-            transparent = false,
+            transparent = true,
             saturation = 1,
             italic_comments = true,
             hide_fillchars = false,
@@ -25,7 +25,17 @@ return {
             }
         }
 
+        require('cyberdream').setup(opts)
+
         vim.cmd.colorscheme 'cyberdream'
+
+        -- Keybind for toggling the color scheme
+        vim.keymap.set('n', '<leader>tt', function()
+            opts.transparent = not opts.transparent
+            require('cyberdream').setup(opts)
+            vim.cmd.colorscheme 'cyberdream'
+            vim.notify('Transparency ' .. (opts.transparent and 'on' or 'off'))
+        end, { noremap = true, silent = true, desc = 'Toggle Transparency' })
     end
 }
 

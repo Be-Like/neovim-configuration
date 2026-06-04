@@ -1,5 +1,5 @@
 return {
-    require('themes.tokyonight'),
+    require('themes.cyberdream'),
     require('standard.oil'),
     require('standard.telescope'),
     require('standard.whichkey'),
