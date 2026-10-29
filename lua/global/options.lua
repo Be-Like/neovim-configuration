@@ -27,7 +27,7 @@ vim.opt.updatetime = 1000
 vim.opt.colorcolumn = "120"
 
 -- Disables mouse click actions (I want to be fully reliant on the keyboard)
-vim.o.mouse = ""
+-- vim.o.mouse = ""
 
 -- Disables the mode within the bottom most gutter (this will be displayed via a different tool)
 vim.o.showmode = false
